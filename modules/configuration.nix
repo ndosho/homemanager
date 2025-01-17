@@ -11,7 +11,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
-  boot.loader.systemd-boot.windows."10".efiDeviceHandle = "HD0,gpt2";
+  boot.loader.systemd-boot.windows."10".efiDeviceHandle = "FS0";
 
   networking.hostName = "nixos";
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
@@ -30,6 +30,9 @@
     isNormalUser = true;
     extraGroups = ["wheel" "audio" "video"];
     shell = pkgs.fish;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbEwFo57Gt61dPRsLRgn4rTPlrKz2eZsGueLHnO6F0z ndosho1@gmail.com"
+    ];
     packages = with pkgs; [
       curl
       brave
@@ -62,6 +65,7 @@
     wget
     nvd
     nix-output-monitor
+    wl-clipboard
   ];
 
   programs.mtr.enable = true;
@@ -71,6 +75,10 @@
   };
 
   services.openssh.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
+  };
 
   system.stateVersion = "24.11";
 }

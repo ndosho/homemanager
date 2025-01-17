@@ -20,6 +20,8 @@
     zoxide
     imagemagick
     localsend
+    sddm
+    wofi
   ];
 
   home.file = {
@@ -49,5 +51,8 @@
     shellAliases = {
       y = "yazi";
     };
+    loginShellInit = ''
+      set -Ux fish_greeting
+    '';
   };
 }
