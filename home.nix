@@ -1,8 +1,6 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
+  imports = [./modules/default.nix];
+
   home.username = "ns";
   home.homeDirectory = "/home/ns";
 
@@ -22,6 +20,7 @@
     localsend
     sddm
     wofi
+    dolphin
   ];
 
   home.file = {

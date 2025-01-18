@@ -11,6 +11,8 @@
       swapfile = false;
       backup = false;
       termguicolors = true;
+      foldmethod = "marker";
+      foldmarker = "{,}";
     };
     languages = {
       nix.enable = true;
@@ -23,6 +25,7 @@
     lsp = {
       enable = true;
       formatOnSave = true;
+      mappings.codeAction = "<leader>ca";
     };
 
     dashboard.alpha.enable = true;
