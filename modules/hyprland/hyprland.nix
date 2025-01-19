@@ -9,7 +9,6 @@
       "monitor" = ",preferred,auto,auto";
 
       "exec-once" = [
-        "waybar"
         "hyprpaper"
       ];
 
