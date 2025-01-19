@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  home.file."config.fish.functions.fish_prompt.fish".source = ./fish_prompt.fish;
+  home.file.".config/fish/functions/fish_prompt.fish".source = ./fish_prompt.fish;
   programs.fish = {
     enable = true;
     shellAliases = {
