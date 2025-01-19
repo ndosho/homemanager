@@ -22,7 +22,14 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  services.pulseaudio.enable = false;
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+  };
 
   services.libinput.enable = true;
 
@@ -66,6 +73,8 @@
     nvd
     nix-output-monitor
     wl-clipboard
+    pavucontrol
+    playerctl
   ];
 
   programs.mtr.enable = true;
