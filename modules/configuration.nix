@@ -57,7 +57,7 @@
     ];
   };
 
-  environment.sessionVariables = {FLAKE = "/home/ns/.config/home-manager/";};
+  environment.sessionVariables = {FLAKE = "/home/ns/.config/homemanager/";};
 
   programs.waybar.enable = true;
   programs.hyprland.enable = true;

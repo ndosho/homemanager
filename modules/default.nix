@@ -6,5 +6,7 @@
     ./yazi/yazi.nix
     ./terminal/kitty.nix
     ./waybar/waybar.nix
+    ./hypridle/hypridle.nix
+    ./hyprlock/hyprlock.nix
   ];
 }

@@ -19,7 +19,7 @@
           format = "Menu {icon}";
           format-icon = "󰻀";
           rotate = 0;
-          on-click = "menu_launcher";
+          on-click = "wofi --show drun";
         };
 
         "wlr/taskbar" = {

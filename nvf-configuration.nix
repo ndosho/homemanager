@@ -41,6 +41,9 @@
         stepOut = "<F11>";
       };
     };
+
+    autopairs.nvim-autopairs.enable = true;
+
     keymaps = [
       {
         key = "jk";
