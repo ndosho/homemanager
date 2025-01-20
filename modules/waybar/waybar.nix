@@ -1,12 +1,8 @@
 {pkgs, ...}: {
   home.packages = [
-    (
-      pkgs.writeShellScriptBin
-      "wofi_sh"
-      ''
-        wofi --show drun
-      ''
-    )
+    (pkgs.writeShellScriptBin "menu_launcher" ''
+      ${pkgs.wofi}/bin/wofi --show drun
+    '')
   ];
   programs.waybar = {
     enable = true;
@@ -17,13 +13,13 @@
 
         modules-left = ["custom/appmenu" "wlr/taskbar"];
         modules-center = ["hyprland/workspaces" "clock"];
-        modules-right = ["cpu" "user" "network"];
+        modules-right = ["cpu" "pulseaudio" "network" "custom/powermenu"];
 
         "custom/appmenu" = {
           format = "Menu {icon}";
           format-icon = "󰻀";
           rotate = 0;
-          on-click = "wofi_sh";
+          on-click = "menu_launcher";
         };
 
         "wlr/taskbar" = {
@@ -70,6 +66,17 @@
           format-icons = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
         };
 
+        "pulseaudio" = {
+          "scroll-step" = 1;
+          "format" = "{icon} {volume}%";
+          "format-muted" = "󰖁 Muted";
+          "format-icons" = {
+            "default" = ["" "" ""];
+          };
+          "on-click" = "pamixer -t";
+          "tooltip" = false;
+        };
+
         network = {
           tooltip = true;
           rotate = 0;
@@ -80,6 +87,11 @@
           tooltip-format-disconnected = "Disconnected";
           format-alt = "<span foreground='#99ffdd'> {bandwidthDownBytes}</span> <span foreground='#ffcc66'> {bandwidthUpBytes}</span>";
           interval = 2;
+        };
+        "custom/powermenu" = {
+          "format" = "";
+          "on-click" = "pkill rofi || ~/.config/rofi/powermenu.sh";
+          "tooltip" = false;
         };
       };
     };
