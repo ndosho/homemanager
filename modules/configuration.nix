@@ -8,11 +8,16 @@
     ./hardware-configuration.nix
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot";
-  boot.loader.systemd-boot.windows."10".efiDeviceHandle = "FS0";
-
+  boot.loader = {
+    grub = {
+      enable = true;
+      device = "nodev";
+      useOSProber = true;
+      efiSupport = true;
+    };
+    efi.efiSysMountPoint = "/boot";
+    efi.canTouchEfiVariables = true;
+  };
   networking.hostName = "nixos";
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
