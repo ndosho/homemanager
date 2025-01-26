@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -19,11 +14,12 @@
     efi.canTouchEfiVariables = true;
   };
   networking.hostName = "nixos";
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true;
 
   fonts.packages = with pkgs; [nerd-fonts.fira-code];
 
   time.timeZone = "Africa/Dar_es_Salaam";
+  time.hardwareClockInLocalTime = true;
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
@@ -40,10 +36,14 @@
   };
 
   services.libinput.enable = true;
+  environment.variables = {
+    DOCKER_HOST = "unix://$XDG_RUNTIME_DIR/docker.sock";
+  };
 
   users.users.ns = {
+    createHome = true;
     isNormalUser = true;
-    extraGroups = ["wheel" "audio" "video"];
+    extraGroups = ["wheel" "audio" "video" "docker"];
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbEwFo57Gt61dPRsLRgn4rTPlrKz2eZsGueLHnO6F0z ndosho1@gmail.com"
@@ -59,8 +59,8 @@
 
   environment.sessionVariables = {FLAKE = "/home/ns/.config/homemanager/";};
 
-  programs.waybar.enable = true;
   programs.hyprland.enable = true;
+  #programs.waybar.enable = true;
   programs.nh.enable = true;
   programs.fish.enable = true;
   security.doas = {
@@ -84,6 +84,14 @@
     pavucontrol
     playerctl
   ];
+
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      package = pkgs.docker;
+    };
+  };
 
   programs.mtr.enable = true;
   programs.gnupg.agent = {

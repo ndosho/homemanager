@@ -1,14 +1,18 @@
 {pkgs, ...}: {
   wayland.windowManager.hyprland = {
     enable = true;
+    systemd.variables = ["--all"];
     settings = {
       "$terminal" = "kitty";
+      "$locker" = "hyprlock";
       "$fileManager" = "dolphin";
       "$menu" = "wofi --show drun";
       "$mainMod" = "SUPER";
       "monitor" = ",preferred,auto,auto";
 
-      "exec-once" = [
+      exec-once = [
+        "dbus-update-activation-enviroment --systemd --all"
+        "waybar"
         "hyprpaper"
       ];
 
@@ -124,6 +128,7 @@
 
       bind = [
         "$mainMod, RETURN, exec, $terminal"
+        "$mainMod, L, exec, $locker"
         "$mainMod, Q, killactive,"
         "$mainMod, E, exit,"
         "$mainMod, Y, exec, $fileManager"
